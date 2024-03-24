@@ -1,0 +1,17 @@
+<p>member-list works!</p>
+<table>
+  <tr>
+    <th>first name</th>
+    <th>last name</th>
+    <th>israeli id</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let member of members">
+    <a [routerLink]="['/edit', member.id]">
+      <td>{{ member.firstName }}</td>
+      <td>{{ member.lastName }}</td>
+      <td>{{ member.tz }}</td>
+    </a>
+    <td (click)="onDelete(member.id)"><button>DELETE</button></td>
+  </tr>
+</table>

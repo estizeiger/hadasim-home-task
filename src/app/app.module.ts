@@ -3,16 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MemberListComponent } from './member/member-list/member-list.component';
+import { MemberDetailsComponent } from './member/member-details/member-details.component';
+import { MemberService } from './member/member.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MemberListComponent,
+    MemberDetailsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule, 
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [ MemberService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

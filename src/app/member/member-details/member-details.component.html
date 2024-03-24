@@ -1,0 +1,28 @@
+<p>member-details works!</p>
+
+<div>
+  <form #memberForm="ngForm" (ngSubmit)="onSaveMember(memberForm)">
+    <input
+      type="text"
+      name="firstName"
+      [ngModel]="member?.firstName"
+      required
+      placeholder="first name"
+    />
+    <input
+      type="text"
+      name="lastName"
+      [ngModel]="member?.lastName"
+      required
+      placeholder="last name"
+    />
+    <input
+      type="number"
+      name="tz"
+      [ngModel]="member?.tz"
+      required
+      placeholder="israeli id"
+    />
+    <button type="submit">save member</button>
+  </form>
+</div>
