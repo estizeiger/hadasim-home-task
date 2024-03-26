@@ -13,26 +13,20 @@ router.get("/api/members", (req, res) => {
   });
 });
 
-router.post("/api/members", (req, res) => {
-  const newMember = new Member({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    tz: req.body.tz,
-    city: req.body.city,
-    street: req.body.street,
-    houseNumber: req.body.houseNumber,
-    phone: req.body.phone,
-    mobile: req.body.mobile,
-    positiveResultDate: req.body.positiveResultDate,
-    recoveryDate: req.body.recoveryDate,
-    vaccines: req.body.vaccines,
-  });
-  newMember.save().then((createdMember) => {
+router.post("/api/members", async (req, res) => {
+  console.log(req.body);
+  try {
+    const newMember = await Member.create(req.body);
     res.status(201).json({
       message: "Member added successfully",
-      id: createdMember._id,
+      id: newMember._id,
     });
-  });
+  } catch (e) {
+    return res.status(400).json({
+      message: e.message,
+      status: 400,
+    });
+  }
 });
 
 router.put("/api/members/:id", (req, res) => {

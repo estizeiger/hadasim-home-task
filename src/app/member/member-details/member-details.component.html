@@ -164,7 +164,7 @@
 
   <br />
   <h2>Vaccines:</h2>
-  <button (click)="addVaccine()">Add Vaccine</button>
+  <button mat-button (click)="addVaccine()">Add Vaccine</button>
   <table cellspacing="0">
     <ng-container *ngIf="memberForm.get('vaccines') as vaccinesArray">
       <tr *ngFor="let control of vaccinesArray.controls; let i = index">
@@ -199,7 +199,9 @@
           </mat-form-field>
         </td>
         <td>
-          <button type="button" (click)="removeVaccine(i)">Remove</button>
+          <button mat-button type="button" (click)="removeVaccine(i)">
+            Remove
+          </button>
         </td>
       </tr>
     </ng-container>

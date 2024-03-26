@@ -25,7 +25,7 @@ export class MemberDetailsComponent implements OnInit {
   constructor(public memberService: MemberService, 
     private formBuilder: FormBuilder,
     public route: ActivatedRoute) {
-      this.initForm();
+      
     }
 
 
@@ -36,31 +36,32 @@ export class MemberDetailsComponent implements OnInit {
     }
 
 
-    minDateValidator(control:AbstractControl)  {
-        if(!control.value) return of(null)
+    minDateValidator(control: AbstractControl)  {
+        if(!control.value) return null
         const inputDate = new Date(control.value)
-        return of(inputDate < new Date(Date.now() - 24 * 60 * 60 * 1000) ? null :  {"minDate" : true})
+        return inputDate < new Date(Date.now() - 24 * 60 * 60 * 1000) ? null :  {"minDate" : true}
     }
 
     
-    maxDateValidator(control:AbstractControl)  {
-        if(!control.value) return of(null)
+    maxDateValidator(control: AbstractControl)  {
+        if(!control.value) return null
         const inputDate = new Date(control.value)
-        return of(inputDate > new Date(Date.now() - 24 * 60 * 60 * 1000) ? null :  {"maxDate" : true})
+        return inputDate > new Date(Date.now() - 24 * 60 * 60 * 1000) ? null :  {"maxDate" : true}
     }
 
     initForm(): void {
+      console.log(this.member)
       this.memberForm = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        tz: ['', Validators.required],
-        city: ['', Validators.required],
-        street: ['', Validators.required],
-        houseNumber: ['', Validators.required],
-        phone: ['', Validators.required],
-        mobile: ['', Validators.required, this.phoneNumberValidator],
-        positiveResultDate: ['', this.minDateValidator],
-        recoveryDate: ['', this.minDateValidator],
+        firstName: [this.member.firstName, Validators.required],
+        lastName: [this.member.lastName, Validators.required],
+        tz: [this.member.tz, Validators.required],
+        city: [this.member.city, Validators.required],
+        street: [this.member.street, Validators.required],
+        houseNumber: [this.member.houseNumber, Validators.required],
+        phone: [this.member.phone, Validators.required],
+        mobile: [this.member.mobile, Validators.required, this.phoneNumberValidator],
+        positiveResultDate: [this.member.positiveResultDate, this.minDateValidator],
+        recoveryDate: [this.member.recoveryDate, this.minDateValidator],
         vaccines: this.formBuilder.array([])
       });
     }
@@ -93,6 +94,7 @@ export class MemberDetailsComponent implements OnInit {
         this.id = '';
         this.member = defaultMember()
       }
+      this.initForm();
     });
   }
 
