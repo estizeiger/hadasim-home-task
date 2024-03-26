@@ -9,7 +9,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 In another terminal, run `npm run start-server` to run the back-end node server. It will also automatically reload if you change any of the source files.
 
 ## Client-Side images:
-main page: all members:
+### main page: all members:
 ![צילום מסך 2024-03-26 184029](https://github.com/estizeiger/hadasim-home-task/assets/73308036/85249676-cbd0-4c76-a03f-65df529861bd)
 
 
