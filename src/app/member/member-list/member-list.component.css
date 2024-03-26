@@ -1,3 +1,28 @@
+table {
+    width: 60%;
+
+    tr{
+        display: flex;
+        align-items: center;
+    }
+
+    tr.first-row {
+        display: flex;
+        justify-content: space-between;
+
+        h2 {
+            font-size: 15px
+        }
+    }
+}
+
 a {
     text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    min-width: 100%;
+}
+
+a:hover{
+    background-color: rgb(228, 231, 249);
 }

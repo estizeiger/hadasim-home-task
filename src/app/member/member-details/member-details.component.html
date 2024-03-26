@@ -1,28 +1,209 @@
-<p>member-details works!</p>
+<h1>Member Details</h1>
 
-<div>
-  <form #memberForm="ngForm" (ngSubmit)="onSaveMember(memberForm)">
-    <input
-      type="text"
-      name="firstName"
-      [ngModel]="member?.firstName"
-      required
-      placeholder="first name"
-    />
-    <input
-      type="text"
-      name="lastName"
-      [ngModel]="member?.lastName"
-      required
-      placeholder="last name"
-    />
-    <input
-      type="number"
-      name="tz"
-      [ngModel]="member?.tz"
-      required
-      placeholder="israeli id"
-    />
-    <button type="submit">save member</button>
-  </form>
-</div>
+<form
+  class="member-form"
+  [formGroup]="memberForm"
+  (ngSubmit)="onSaveMember($event)"
+>
+  <h2>Personal Details:</h2>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="text"
+            formControlName="firstName"
+            placeholder="first name"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('firstName').errors?.['required']">
+            Please enter a valid first name
+          </mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="text"
+            formControlName="lastName"
+            placeholder="last name"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('lastName').errors?.['required']">
+            Please enter a valid last name
+          </mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="number"
+            formControlName="tz"
+            placeholder="israeli id"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('tz').errors?.['required']">
+            Please enter a valid id
+          </mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="text"
+            formControlName="city"
+            placeholder="city"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('city').errors?.['required']">
+            Please enter a city
+          </mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="text"
+            formControlName="street"
+            placeholder="street"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('street').errors?.['required']">
+            Please enter a valid street
+          </mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="text"
+            formControlName="houseNumber"
+            placeholder="houseNumber"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('houseNumber').errors?.['required']">
+            Please enter a house number
+          </mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="tel"
+            formControlName="phone"
+            placeholder="phone"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('phone').errors?.['required']">
+            Please enter valid tel
+          </mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="member-form-field">
+          <input
+            matInput
+            type="tel"
+            formControlName="mobile"
+            placeholder="mobile"
+            required
+          />
+          <mat-error *ngIf="memberForm.get('mobile').errors?.['required']">
+            Please enter valid israeli phone
+          </mat-error>
+          <mat-error
+            *ngIf="memberForm.get('mobile').errors?.['invalidIsraeliPhone']"
+          >
+            Please enter valid israeli phone
+          </mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+  <h2>Corona:</h2>
+
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field class="member-form-field">
+          <label>positive result date:</label>
+          <input matInput type="date" formControlName="positiveResultDate" />
+          <mat-error
+            *ngIf="memberForm.get('positiveResultDate').errors?.['minDate']"
+          >
+            Please enter a date that is before today
+          </mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="member-form-field">
+          <label>recovery date:</label>
+          <input matInput type="date" formControlName="recoveryDate" />
+          <mat-error *ngIf="memberForm.get('recoveryDate').errors?.['minDate']">
+            Please enter a date that is before today
+          </mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+  <h2>Vaccines:</h2>
+  <button (click)="addVaccine()">Add Vaccine</button>
+  <table cellspacing="0">
+    <ng-container *ngIf="memberForm.get('vaccines') as vaccinesArray">
+      <tr *ngFor="let control of vaccinesArray.controls; let i = index">
+        <td>
+          <mat-form-field class="member-form-field">
+            <label>vaccine date:</label>
+            <input
+              matInput
+              type="date"
+              [formControl]="control.get('vaccineDate')"
+            />
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="member-form-field">
+            <mat-label>Manufacturer</mat-label>
+            <mat-select
+              matNativeControl
+              [formControl]="control.get('manufacturer')"
+            >
+              <mat-optgroup>
+                <mat-option
+                  *ngFor="let manufacturer of manufactuerers"
+                  [value]="manufacturer"
+                  [title]="manufacturer"
+                >
+                  {{ manufacturer }}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <button type="button" (click)="removeVaccine(i)">Remove</button>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+
+  <button mat-button color="accent" type="submit">Save Member</button>
+</form>

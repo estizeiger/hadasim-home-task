@@ -20,9 +20,6 @@ export class MemberListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.memberService.getMembers();
-    // this.membersSub = this.memberService.getMemberUpdateListener()
-    // .subscribe((members: Member[])=>{this.members = members;}
-    // );
   }
 
   onDelete(id: string){

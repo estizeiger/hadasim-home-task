@@ -1,7 +1,15 @@
-<header>
-  <span> <a routerLink=""> All Members </a></span>
-  <span><a routerLink="/create"> New Member </a></span>
-</header>
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="/"> All Members </a>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li>
+      <a mat-button routerLink="/create"> New Member </a>
+    </li>
+  </ul>
+</mat-toolbar>
+
 <main>
   <router-outlet></router-outlet>
 </main>

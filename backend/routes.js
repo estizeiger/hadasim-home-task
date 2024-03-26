@@ -18,6 +18,14 @@ router.post("/api/members", (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     tz: req.body.tz,
+    city: req.body.city,
+    street: req.body.street,
+    houseNumber: req.body.houseNumber,
+    phone: req.body.phone,
+    mobile: req.body.mobile,
+    positiveResultDate: req.body.positiveResultDate,
+    recoveryDate: req.body.recoveryDate,
+    vaccines: req.body.vaccines,
   });
   newMember.save().then((createdMember) => {
     res.status(201).json({
@@ -33,6 +41,14 @@ router.put("/api/members/:id", (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     tz: req.body.tz,
+    city: req.body.city,
+    street: req.body.street,
+    houseNumber: req.body.houseNumber,
+    phone: req.body.phone,
+    mobile: req.body.mobile,
+    positiveResultDate: req.body.positiveResultDate,
+    recoveryDate: req.body.recoveryDate,
+    vaccines: req.body.vaccines,
   });
   Member.updateOne({ _id: req.params.id }, member).then((result) => {
     console.log(result);

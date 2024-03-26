@@ -1,10 +1,10 @@
-<p>member-list works!</p>
+<h1>All Members</h1>
 <table>
-  <tr>
-    <th>first name</th>
-    <th>last name</th>
-    <th>israeli id</th>
-    <th></th>
+  <tr class="first-row">
+    <th><h2>first name</h2></th>
+    <th><h2>last name</h2></th>
+    <th><h2>israeli id</h2></th>
+    <!-- <th></th> -->
   </tr>
   <tr *ngFor="let member of members">
     <a [routerLink]="['/edit', member.id]">
@@ -12,6 +12,10 @@
       <td>{{ member.lastName }}</td>
       <td>{{ member.tz }}</td>
     </a>
-    <td (click)="onDelete(member.id)"><button>DELETE</button></td>
+    <td>
+      <button mat-button color="accent" (click)="onDelete(member.id)">
+        DELETE
+      </button>
+    </td>
   </tr>
 </table>

@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import { Member } from './member.model';
+import { Vaccine } from './vaccine.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class MemberService {
   // Fetch all members
   getMembers() {
     this.http
-      .get<{message: string, members: { firstName: any; lastName: any; tz: any; _id: any; }[]}>(
+      .get<{ message: string, members: { firstName: any; lastName: any; tz: any; _id: any; city: any, street: any; houseNumber: any; phone: any; mobile: any; positiveResultDate: any; recoveryDate: any; vaccines: []}[]}>(
         this.apiUrl
       )
       .pipe(
@@ -30,7 +31,16 @@ export class MemberService {
               firstName: member.firstName, 
               lastName: member.lastName, 
               tz: member.tz, 
-              id: member._id 
+              id: member._id,
+
+              city: member.city,
+              street: member.street, 
+              houseNumber: member.houseNumber, 
+              phone: member.phone,
+              mobile: member.mobile,
+              positiveResultDate: member.positiveResultDate, 
+              recoveryDate: member.recoveryDate,
+              vaccines: member.vaccines
             };})
         })
       )
@@ -49,8 +59,7 @@ export class MemberService {
   }
 
   // Add a new member
-  addMember(firstName: string, lastName: string, tz: number) {
-    const member: Member = { id: '', firstName: firstName, lastName: lastName, tz: tz };
+  addMember(member: Member) {
     this.http.post<{ message: string, id: string }>(this.apiUrl, member)
     .subscribe(responseData => {
       console.log(responseData.message);
@@ -62,14 +71,16 @@ export class MemberService {
   }
 
   // Update an existing member
-  updateMember(id: string, firstName: string, lastName: string, tz: number) {
-    const member: Member = { id: id, firstName: firstName, lastName: lastName, tz: tz };
+  updateMember(id: string, member: Partial<Member>) {
     const url = `${this.apiUrl}/${id}`;
     this.http.put<void>(url, member)
     .subscribe(()=>{
       const oldMemberIndex = this.members.findIndex(member=> member.id === id);
       const membersCloned = [...this.members];
-      membersCloned[oldMemberIndex] = member;
+      membersCloned[oldMemberIndex] = {
+        ...membersCloned[oldMemberIndex],
+        ...member
+      };
       this.members = membersCloned;
       this.membersUpdated.next([...this.members]);
     });
