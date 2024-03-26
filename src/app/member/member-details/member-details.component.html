@@ -48,6 +48,9 @@
           <mat-error *ngIf="memberForm.get('tz').errors?.['required']">
             Please enter a valid id
           </mat-error>
+          <mat-error *ngIf="memberForm.get('tz').errors?.['invalidIsraeliId']">
+            Please enter a valid id
+          </mat-error>
         </mat-form-field>
       </td>
     </tr>
@@ -85,7 +88,7 @@
         <mat-form-field class="member-form-field">
           <input
             matInput
-            type="text"
+            type="number"
             formControlName="houseNumber"
             placeholder="houseNumber"
             required
@@ -102,7 +105,7 @@
         <mat-form-field class="member-form-field">
           <input
             matInput
-            type="tel"
+            type="text"
             formControlName="phone"
             placeholder="phone"
             required
@@ -116,7 +119,7 @@
         <mat-form-field class="member-form-field">
           <input
             matInput
-            type="tel"
+            type="text"
             formControlName="mobile"
             placeholder="mobile"
             required

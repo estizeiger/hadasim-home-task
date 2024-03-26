@@ -26,7 +26,6 @@ export class MemberService {
       )
       .pipe(
         map((responseData)=>{
-        console.log(responseData)
 
           return responseData.members.map((member)=> { 
             return { 
