@@ -9,9 +9,9 @@ const memberSchema = mongoose.Schema({
   city: { type: String, required: true },
   street: { type: String, required: true },
   houseNumber: { type: Number, required: true },
-  phone: { type: Number, required: true },
-  mobile: { type: Number, required: true },
-  positiveResultDate: { type: Date },
+  phone: { type: String, required: true },
+  mobile: { type: String, required: true },
+  positiveResultDate: { type: Date, default: new Date() },
   recoveryDate: { type: Date },
   vaccines: [
     {

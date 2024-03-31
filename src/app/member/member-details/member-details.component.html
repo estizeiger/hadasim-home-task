@@ -130,7 +130,7 @@
           <mat-error
             *ngIf="memberForm.get('mobile').errors?.['invalidIsraeliPhone']"
           >
-            Please enter valid israeli phone
+            Please enter valid mobile phone
           </mat-error>
         </mat-form-field>
       </td>
@@ -167,48 +167,57 @@
 
   <br />
   <h2>Vaccines:</h2>
-  <button mat-button (click)="addVaccine()">Add Vaccine</button>
+  <input type="button" mat-button (click)="addVaccine()" value="Add vaccine" />
   <table cellspacing="0">
     <ng-container *ngIf="memberForm.get('vaccines') as vaccinesArray">
-      <tr *ngFor="let control of vaccinesArray.controls; let i = index">
-        <td>
-          <mat-form-field class="member-form-field">
-            <label>vaccine date:</label>
-            <input
-              matInput
-              type="date"
-              [formControl]="control.get('vaccineDate')"
-            />
-          </mat-form-field>
-        </td>
+      <div *ngIf="vaccinesArray.controls.length > 0">
+        <tr *ngFor="let control of vaccinesArray.controls; let i = index">
+          <td>
+            <mat-form-field class="member-form-field">
+              <label>vaccine date:</label>
+              <input
+                matInput
+                type="date"
+                [formControl]="control.get('vaccineDate')"
+              />
+            </mat-form-field>
+          </td>
 
-        <td>
-          <mat-form-field class="member-form-field">
-            <mat-label>Manufacturer</mat-label>
-            <mat-select
-              matNativeControl
-              [formControl]="control.get('manufacturer')"
-            >
-              <mat-optgroup>
-                <mat-option
-                  *ngFor="let manufacturer of manufactuerers"
-                  [value]="manufacturer"
-                  [title]="manufacturer"
-                >
-                  {{ manufacturer }}
-                </mat-option>
-              </mat-optgroup>
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <td>
-          <button mat-button type="button" (click)="removeVaccine(i)">
-            Remove
-          </button>
-        </td>
-      </tr>
+          <td>
+            <mat-form-field class="member-form-field">
+              <mat-label>Manufacturer</mat-label>
+              <mat-select
+                matNativeControl
+                [formControl]="control.get('manufacturer')"
+              >
+                <mat-optgroup>
+                  <mat-option
+                    *ngFor="let manufacturer of manufactuerers"
+                    [value]="manufacturer"
+                    [title]="manufacturer"
+                  >
+                    {{ manufacturer }}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <button mat-button type="button" (click)="removeVaccine(i)">
+              Remove
+            </button>
+          </td>
+        </tr>
+      </div>
     </ng-container>
   </table>
 
-  <button mat-button color="accent" type="submit">Save Member</button>
+  <button
+    mat-button
+    color="accent"
+    type="submit"
+    [disabled]="!memberForm.valid"
+  >
+    Save Member
+  </button>
 </form>

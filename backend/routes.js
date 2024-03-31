@@ -13,8 +13,17 @@ router.get("/api/members", (req, res) => {
   });
 });
 
+router.get("/api/members/:id", (req, res) => {
+  Member.findOne({ _id: req.params.id }).then((document) => {
+    res.status(200).json({
+      message: "Member fetched successfully",
+      member: document,
+    });
+  });
+});
+
 router.post("/api/members", async (req, res) => {
-  console.log(req.body);
+  console.log("/api/members/create", req.body);
   try {
     const newMember = await Member.create(req.body);
     res.status(201).json({
@@ -30,21 +39,22 @@ router.post("/api/members", async (req, res) => {
 });
 
 router.put("/api/members/:id", (req, res) => {
-  const member = new Member({
-    _id: req.body.id,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    tz: req.body.tz,
-    city: req.body.city,
-    street: req.body.street,
-    houseNumber: req.body.houseNumber,
-    phone: req.body.phone,
-    mobile: req.body.mobile,
-    positiveResultDate: req.body.positiveResultDate,
-    recoveryDate: req.body.recoveryDate,
-    vaccines: req.body.vaccines,
-  });
-  Member.updateOne({ _id: req.params.id }, member).then((result) => {
+  Member.updateOne(
+    { _id: req.params.id },
+    {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      tz: req.body.tz,
+      city: req.body.city,
+      street: req.body.street,
+      houseNumber: req.body.houseNumber,
+      phone: req.body.phone,
+      mobile: req.body.mobile,
+      positiveResultDate: req.body.positiveResultDate,
+      recoveryDate: req.body.recoveryDate,
+      vaccines: req.body.vaccines,
+    }
+  ).then((result) => {
     console.log(result);
     res.status(200).json({ message: "Updated member" });
   });

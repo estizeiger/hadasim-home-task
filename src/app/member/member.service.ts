@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import { Member } from './member.model';
@@ -55,12 +55,28 @@ export class MemberService {
     return this.membersUpdated.asObservable();
   }
 
-  getMemberById(id: string) {
-    return {...this.members.find(m=>m.id === id)}; 
+  getMemberById(id: string) : Observable<Member>{
+    // return {...this.members.find(m=>m.id === id)};
+    const found = this.members.find(m=>m.id === id);
+    if(found == undefined){
+      this.http
+      .get<{ message: string, member: Member}>(
+        this.apiUrl
+      )
+      .subscribe(responseData=>{
+        this.members.push(responseData.member);
+        this.membersUpdated.next([...this.members]);
+        return responseData.member;
+      })
+    }
+    else{
+      return of(found);
+    }
   }
 
   // Add a new member
   addMember(member: Member) {
+    debugger;
     this.http.post<{ message: string, id: string }>(this.apiUrl, member)
     .subscribe(responseData => {
       console.log(responseData.message);
@@ -73,6 +89,7 @@ export class MemberService {
 
   // Update an existing member
   updateMember(id: string, member: Partial<Member>) {
+    debugger
     const url = `${this.apiUrl}/${id}`;
     this.http.put<void>(url, member)
     .subscribe(()=>{

@@ -1,26 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 import { MemberService } from '../member.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Member, defaultMember } from '../member.model';
 import { Vaccine } from '../vaccine.model';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, Subscription, of } from 'rxjs';
 
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
   styleUrl: './member-details.component.css'
 })
-export class MemberDetailsComponent implements OnInit {
+export class MemberDetailsComponent implements OnInit, OnDestroy {
 
   private mode = 'create';
-  manufactuerers = ["Fizer", "X", "Y"]
+  manufactuerers = ["Pfizer - BioNTech", "Moderna", "Johnson & Johnson", "AstraZeneca"]
 
-  memberForm: FormGroup;
+  public memberForm: FormGroup;
 
   private id: string;
   member: Member;
+
+  sub$: Subscription = new Subscription();
 
   constructor(public memberService: MemberService, 
     private formBuilder: FormBuilder,
@@ -89,7 +91,10 @@ export class MemberDetailsComponent implements OnInit {
     }
   
     addVaccine(): void {
-      if( this.vaccines.length >=4) return
+      if( this.vaccines.length >=4) {
+        alert("Cannot add more than 4 vaccines");
+        return;
+      }
       this.vaccines.push(this.formBuilder.group({
         vaccineDate: [''],
         manufacturer: ['']
@@ -105,20 +110,24 @@ export class MemberDetailsComponent implements OnInit {
       if(paramMap.has('id')){
         this.mode = 'edit';
         this.id = paramMap.get('id');
-        this.member = this.memberService.getMemberById(this.id);
+         this.sub$ =  this.memberService.getMemberById(this.id).subscribe(member=>{
+          this.member = member;
+          this.initForm();
+        });
       }
       else {
         this.mode = 'create';
         this.id = '';
         this.member = defaultMember()
+        this.initForm();
       }
-      this.initForm();
+      
     });
   }
 
   onSaveMember(e: any) {
     e.preventDefault()
-
+    debugger;
     if (this.memberForm.invalid) {
       console.log("form is invalid")
       return;
@@ -141,6 +150,11 @@ export class MemberDetailsComponent implements OnInit {
       onlySelf: true,
       emitEvent: false
     });
+
+    alert("member was saved succesfully");
   }
 
+  ngOnDestroy(): void {
+    // this.sub$.unsubscribe();
+  }
 }
