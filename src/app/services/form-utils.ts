@@ -16,7 +16,6 @@ export function israeliIdValidator(control: AbstractControl) {
   }
   const checksum = (10 - (sum % 10)) % 10;
 
-  // Compare the calculated checksum with the last digit of the ID
   return of(checksum === idDigits[8] ? null : {"invalidIsraeliId": true})
 }
 

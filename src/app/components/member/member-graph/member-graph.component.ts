@@ -19,36 +19,6 @@ export class MemberGraphComponent implements OnInit {
     }
   }
 
-  // renderGraph(): void {
-  //   const years = [2020, 2021, 2022, 2023, 2024]; // corona years
-  //   const ctx = document.getElementById('memberGraph') as HTMLCanvasElement;
-  //   new Chart(ctx, {
-  //     type: 'bar',
-  //     data: {
-  //       labels: years.map(year => year.toString()),
-  //       datasets: [{
-  //         label: 'Members with Positive Result',
-  //         data: this.memberCountsByYear,
-  //         backgroundColor: ' rgb(228, 231, 249)',
-  //         borderColor: ' rgb(237, 56, 108)',
-  //         borderWidth: 2
-  //       }]
-  //     },
-  //     options: {
-  //       scales: {
-  //         y: {
-  //           beginAtZero: true,
-  //           suggestedMin: 0,
-  //           ticks: {
-  //             stepSize: 1, // Ensure only integer values are displayed
-  //             precision: 0 // Display only integer values
-  //           }
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
-
   renderGraph(): void {
     const years = Object.keys(this.memberCountsByYear).map(year => parseInt(year));
     const memberCounts = Object.values(this.memberCountsByYear);
@@ -78,6 +48,10 @@ export class MemberGraphComponent implements OnInit {
             title: {
               display: true,
               text: 'Year'
+            },
+            ticks: {
+              stepSize: 1,
+              precision: 0
             }
           },
           y: {
@@ -90,8 +64,8 @@ export class MemberGraphComponent implements OnInit {
             },
             suggestedMin: 0,
             ticks: {
-              stepSize: 1, // Ensure only integer values are displayed
-              precision: 0 // Display only integer values
+              stepSize: 1,
+              precision: 0
             }
           }
         }

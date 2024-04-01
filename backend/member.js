@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-// const vaccineSchema = new Schema({ vaccineDate: Date, manufacturer: String });
-
 const memberSchema = mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },

@@ -8,12 +8,12 @@
   }
 
   .input-button {
-    padding: 8px 16px; /* Adjust padding */
-    border-radius: 4px; /* Add border-radius */
+    padding: 8px 16px; 
+    border-radius: 4px; 
     border: none;
     background-color: rgb(228, 231, 249);
-    color: white; /* Change text color */
-    cursor: pointer; /* Change cursor */
+    color: white; 
+    cursor: pointer; 
   }
   
   .input-button:hover {
