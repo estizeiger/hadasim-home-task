@@ -10,19 +10,20 @@ In another terminal, run `npm run start-server` to run the back-end node server.
 
 ## Client-Side images:
 ### main page: all members:
-![צילום מסך 2024-03-26 184029](https://github.com/estizeiger/hadasim-home-task/assets/73308036/85249676-cbd0-4c76-a03f-65df529861bd)
+![list](https://github.com/estizeiger/hadasim-home-task/assets/73308036/c908609e-535f-4dd5-997c-eb200927e8a2)
+### main page: positive results graph:
+![graph](https://github.com/estizeiger/hadasim-home-task/assets/73308036/519defeb-ef8f-43b9-90d8-c9b03fb43c9e)
+
 ### member- edit existing member:
-![צילום מסך 2024-03-26 183859](https://github.com/estizeiger/hadasim-home-task/assets/73308036/db37b08b-b161-4ab5-8bbc-a19f3b6bec26)
+![form](https://github.com/estizeiger/hadasim-home-task/assets/73308036/4c14e560-7838-4c13-9b43-3bdcfa976571)
+
 ### member form- fields validations:
-a
-![צילום מסך 2024-03-26 182023](https://github.com/estizeiger/hadasim-home-task/assets/73308036/1a4f5867-9ebb-4cb7-b656-efef38f5a096)
-b
-![צילום מסך 2024-03-26 183623](https://github.com/estizeiger/hadasim-home-task/assets/73308036/c5348cc4-8446-424c-9ce3-e2089546731e)
-c
-![צילום מסך 2024-03-26 181901](https://github.com/estizeiger/hadasim-home-task/assets/73308036/627ecc77-8866-4d45-988b-3d92c5edac0c)
+![invalid form](https://github.com/estizeiger/hadasim-home-task/assets/73308036/3de795d2-8fab-4815-96cf-1b3eaa6b8131)
+
+![invalid form- vaccines](https://github.com/estizeiger/hadasim-home-task/assets/73308036/ad8a834b-7afc-44c1-b00b-1fd340f405d8)
 
 ### member- create new member:
-![צילום מסך 2024-03-26 184743](https://github.com/estizeiger/hadasim-home-task/assets/73308036/5aed8a58-7e8d-4f13-b64d-c4c389a94d3a)
+![create](https://github.com/estizeiger/hadasim-home-task/assets/73308036/d7ef882d-f52c-4a3a-ae04-c8c09e1ecc8c)
 
 
 ## Code scaffolding
