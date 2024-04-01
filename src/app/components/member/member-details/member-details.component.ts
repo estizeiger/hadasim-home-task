@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { MemberService } from '../member.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Member, defaultMember } from '../member.model';
-import { Vaccine } from '../vaccine.model';
-import { Observable, Subject, Subscription, of } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { Member, defaultMember } from 'src/app/models/member.model';
+import { Vaccine } from 'src/app/models/vaccine.model';
+import { israeliIdValidator, minDateValidator, phoneNumberValidator } from 'src/app/services/form-utils';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-member-details',
@@ -30,61 +31,40 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
       
     }
 
-    israeliIdValidator(control:AbstractControl)  {
-      const idRegex = /^[0-9]{9}$/;
-      const isValidLength = idRegex.test( control.value)
-      if(!isValidLength) return of({"invalidIsraeliId" : true})
-
-      const idDigits = String(control.value).split('').map(Number);
-
-      // Calculate the checksum
-      let sum = 0;
-      for (let i = 0; i < 8; i++) {
-          let digit = idDigits[i] * ((i % 2) + 1);
-          sum += digit > 9 ? digit - 9 : digit;
-      }
-      const checksum = (10 - (sum % 10)) % 10;
-
-      // Compare the calculated checksum with the last digit of the ID
-      return of(checksum === idDigits[8] ? null  :  {"invalidIsraeliId" : true})
-}
-
-    phoneNumberValidator(control:AbstractControl)  {
-          const phoneRegex = /^05\d{8}$/
-          const isValid = phoneRegex.test( control.value)
-          return of(isValid ? null  :  {"invalidIsraeliPhone" : true})
-    }
-
-
-    minDateValidator(control: AbstractControl)  {
-        if(!control.value) return null
-        const inputDate = new Date(control.value)
-        return inputDate < new Date(Date.now() - 24 * 60 * 60 * 1000) ? null :  {"minDate" : true}
-    }
-
-    
-    maxDateValidator(control: AbstractControl)  {
-        if(!control.value) return null
-        const inputDate = new Date(control.value)
-        return inputDate > new Date(Date.now() - 24 * 60 * 60 * 1000) ? null :  {"maxDate" : true}
-    }
-
     initForm(): void {
       console.log(this.member)
       this.memberForm = this.formBuilder.group({
         firstName: [this.member.firstName, Validators.required],
         lastName: [this.member.lastName, Validators.required],
-        tz: [this.member.tz, Validators.required, this.israeliIdValidator],
+        tz: [this.member.tz, Validators.required, israeliIdValidator],
         city: [this.member.city, Validators.required],
         street: [this.member.street, Validators.required],
         houseNumber: [this.member.houseNumber, Validators.required],
         phone: [this.member.phone, Validators.required],
-        mobile: [this.member.mobile, Validators.required, this.phoneNumberValidator],
-        positiveResultDate: [this.member.positiveResultDate, this.minDateValidator],
-        recoveryDate: [this.member.recoveryDate, this.minDateValidator],
+        mobile: [this.member.mobile, Validators.required, phoneNumberValidator],
+        positiveResultDate: [this.member.positiveResultDate, minDateValidator],
+        recoveryDate: [this.member.recoveryDate, minDateValidator],
         vaccines: this.formBuilder.array([])
       });
+
+      // Initialize vaccines if member has them
+      if (this.member && this.member.vaccines && this.member.vaccines.length > 0) {
+        this.member.vaccines.forEach(vaccine => {
+        this.addVaccineFormGroup(vaccine);
+        });
+      } 
     }
+
+    // Function to add a vaccine FormGroup with pre-filled data
+    addVaccineFormGroup(vaccine: Vaccine) {
+      const vaccineFormGroup = this.formBuilder.group({
+      vaccineDate: [vaccine.vaccineDate],
+      manufacturer: [vaccine.manufacturer]
+    });
+
+    // Push the new vaccine FormGroup to the vaccines FormArray
+    (this.memberForm.get('vaccines') as FormArray).push(vaccineFormGroup);
+  }
 
     get vaccines(): FormArray {
       return this.memberForm.get('vaccines') as FormArray;
@@ -127,7 +107,6 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
 
   onSaveMember(e: any) {
     e.preventDefault()
-    debugger;
     if (this.memberForm.invalid) {
       console.log("form is invalid")
       return;
@@ -137,12 +116,8 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     console.log(memberData)
     if(this.mode === 'create'){
       this.memberService.addMember(memberData);
-      // this.memberService.addMember(form.value.firstName, form.value.lastName, form.value.tz, form.value.city, form.value.street, form.value.houseNumber, form.value.phone, form.value.mobile, form.value.positiveResultDate, form.value.recoveryDate);
-
     } else {
       this.memberService.updateMember(this.id, memberData);
-      // this.memberService.updateMember(this.id, form.value.firstName, form.value.lastName, form.value.tz, form.value.city, form.value.street, form.value.houseNumber, form.value.phone, form.value.mobile, form.value.positiveResultDate, form.value.recoveryDate);
-
     }
     this.memberForm.reset({
 
@@ -155,6 +130,6 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.sub$.unsubscribe();
+    this.sub$.unsubscribe();
   }
 }

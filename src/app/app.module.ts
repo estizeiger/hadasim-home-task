@@ -3,9 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MemberListComponent } from './member/member-list/member-list.component';
-import { MemberDetailsComponent } from './member/member-details/member-details.component';
-import { MemberService } from './member/member.service';
+import { MemberListComponent } from './components/member/member-list/member-list.component';
+import { MemberDetailsComponent } from './components/member/member-details/member-details.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'

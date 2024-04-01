@@ -10,13 +10,8 @@
     <tr>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="text"
-            formControlName="firstName"
-            placeholder="first name"
-            required
-          />
+          <mat-label>first name:</mat-label>
+          <input matInput type="text" formControlName="firstName" required />
           <mat-error *ngIf="memberForm.get('firstName').errors?.['required']">
             Please enter a valid first name
           </mat-error>
@@ -24,13 +19,8 @@
       </td>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="text"
-            formControlName="lastName"
-            placeholder="last name"
-            required
-          />
+          <mat-label>last name:</mat-label>
+          <input matInput type="text" formControlName="lastName" required />
           <mat-error *ngIf="memberForm.get('lastName').errors?.['required']">
             Please enter a valid last name
           </mat-error>
@@ -38,13 +28,8 @@
       </td>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="number"
-            formControlName="tz"
-            placeholder="israeli id"
-            required
-          />
+          <mat-label>israeli id:</mat-label>
+          <input matInput type="number" formControlName="tz" required />
           <mat-error *ngIf="memberForm.get('tz').errors?.['required']">
             Please enter a valid id
           </mat-error>
@@ -58,13 +43,8 @@
     <tr>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="text"
-            formControlName="city"
-            placeholder="city"
-            required
-          />
+          <mat-label>city:</mat-label>
+          <input matInput type="text" formControlName="city" required />
           <mat-error *ngIf="memberForm.get('city').errors?.['required']">
             Please enter a city
           </mat-error>
@@ -72,13 +52,8 @@
       </td>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="text"
-            formControlName="street"
-            placeholder="street"
-            required
-          />
+          <mat-label>street:</mat-label>
+          <input matInput type="text" formControlName="street" required />
           <mat-error *ngIf="memberForm.get('street').errors?.['required']">
             Please enter a valid street
           </mat-error>
@@ -86,13 +61,8 @@
       </td>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="number"
-            formControlName="houseNumber"
-            placeholder="houseNumber"
-            required
-          />
+          <mat-label>house number:</mat-label>
+          <input matInput type="number" required />
           <mat-error *ngIf="memberForm.get('houseNumber').errors?.['required']">
             Please enter a house number
           </mat-error>
@@ -103,13 +73,8 @@
     <tr>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="text"
-            formControlName="phone"
-            placeholder="phone"
-            required
-          />
+          <mat-label>phone:</mat-label>
+          <input matInput type="text" formControlName="phone" required />
           <mat-error *ngIf="memberForm.get('phone').errors?.['required']">
             Please enter valid tel
           </mat-error>
@@ -117,13 +82,8 @@
       </td>
       <td>
         <mat-form-field class="member-form-field">
-          <input
-            matInput
-            type="text"
-            formControlName="mobile"
-            placeholder="mobile"
-            required
-          />
+          <mat-label>mobile phone:</mat-label>
+          <input matInput type="text" formControlName="mobile" required />
           <mat-error *ngIf="memberForm.get('mobile').errors?.['required']">
             Please enter valid israeli phone
           </mat-error>
@@ -144,7 +104,7 @@
     <tr>
       <td>
         <mat-form-field class="member-form-field">
-          <label>positive result date:</label>
+          <mat-label>positive result date:</mat-label>
           <input matInput type="date" formControlName="positiveResultDate" />
           <mat-error
             *ngIf="memberForm.get('positiveResultDate').errors?.['minDate']"
@@ -155,7 +115,7 @@
       </td>
       <td>
         <mat-form-field class="member-form-field">
-          <label>recovery date:</label>
+          <mat-label>recovery date:</mat-label>
           <input matInput type="date" formControlName="recoveryDate" />
           <mat-error *ngIf="memberForm.get('recoveryDate').errors?.['minDate']">
             Please enter a date that is before today
@@ -167,14 +127,20 @@
 
   <br />
   <h2>Vaccines:</h2>
-  <input type="button" mat-button (click)="addVaccine()" value="Add vaccine" />
+  <input
+    type="button"
+    class="input-button"
+    mat-button
+    (click)="addVaccine()"
+    value="Add vaccine"
+  />
   <table cellspacing="0">
     <ng-container *ngIf="memberForm.get('vaccines') as vaccinesArray">
       <div *ngIf="vaccinesArray.controls.length > 0">
         <tr *ngFor="let control of vaccinesArray.controls; let i = index">
           <td>
             <mat-form-field class="member-form-field">
-              <label>vaccine date:</label>
+              <mat-label>vaccine date:</mat-label>
               <input
                 matInput
                 type="date"

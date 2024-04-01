@@ -30,15 +30,9 @@ export interface Member{
     positiveResultDate?: Date;
     recoveryDate?: Date;
 
-    // vaccines?: Array<[Vaccine, Vaccine, Vaccine, Vaccine]> ;
     vaccines: Vaccine[];
+}
 
-    // vaccine2Date?: Date;
-    // vaccine2Manufacturer?: string;
-    
-    // vaccine3Date?: Date;
-    // vaccine3Manufacturer?: string;
-
-    // vaccine4Date?: Date;
-    // vaccine4Manufacturer?: string;
+export interface ServerMember extends Member{
+  _id: string;
 }

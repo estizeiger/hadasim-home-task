@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import {map} from 'rxjs/operators';
 
-import { Member } from './member.model';
-import { Vaccine } from './vaccine.model';
+import { Member } from '../models/member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,6 @@ export class MemberService {
       )
       .pipe(
         map((responseData)=>{
-
           return responseData.members.map((member)=> { 
             return { 
               firstName: member.firstName, 
@@ -39,9 +37,13 @@ export class MemberService {
               houseNumber: member.houseNumber, 
               phone: member.phone,
               mobile: member.mobile,
-              positiveResultDate: member.positiveResultDate, 
-              recoveryDate: member.recoveryDate,
-              vaccines: member.vaccines
+              positiveResultDate: member.positiveResultDate?.split('T')[0], 
+              recoveryDate: member.recoveryDate?.split('T')[0],
+
+              vaccines: (member.vaccines as any)?.map(v => {
+                return { vaccineDate: v.vaccineDate?.split('T')[0], manufacturer: v.manufacturer };
+              })
+
             };})
         })
       )
@@ -56,7 +58,6 @@ export class MemberService {
   }
 
   getMemberById(id: string) : Observable<Member>{
-    // return {...this.members.find(m=>m.id === id)};
     const found = this.members.find(m=>m.id === id);
     if(found == undefined){
       this.http
@@ -76,7 +77,6 @@ export class MemberService {
 
   // Add a new member
   addMember(member: Member) {
-    debugger;
     this.http.post<{ message: string, id: string }>(this.apiUrl, member)
     .subscribe(responseData => {
       console.log(responseData.message);
@@ -89,7 +89,6 @@ export class MemberService {
 
   // Update an existing member
   updateMember(id: string, member: Partial<Member>) {
-    debugger
     const url = `${this.apiUrl}/${id}`;
     this.http.put<void>(url, member)
     .subscribe(()=>{

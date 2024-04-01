@@ -1,0 +1,22 @@
+.member-form {
+  display: flex;
+  flex-direction: column;
+  }
+  
+  .member-form-field {
+    width: 80%;
+  }
+
+  .input-button {
+    padding: 8px 16px; /* Adjust padding */
+    border-radius: 4px; /* Add border-radius */
+    border: none;
+    background-color: rgb(228, 231, 249);
+    color: white; /* Change text color */
+    cursor: pointer; /* Change cursor */
+  }
+  
+  .input-button:hover {
+    background-color: rgb(173, 182, 234);
+  }
+  

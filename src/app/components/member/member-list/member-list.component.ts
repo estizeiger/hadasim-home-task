@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MemberService } from '../member.service';
-import { Member } from '../member.model';
 import { Subscription } from 'rxjs';
+import { Member } from 'src/app/models/member.model';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-member-list',
@@ -16,10 +16,16 @@ export class MemberListComponent implements OnInit, OnDestroy {
     this.membersSub = this.memberService.getMemberUpdateListener()
     .subscribe((members: Member[])=>{this.members = members;}
     );
+
+    // this.membersSub = this.memberService.getMembers()
+    // .subscribe((members: Member[])=>{this.members = members;})
   }
 
   ngOnInit(): void {
     this.memberService.getMembers();
+
+    // this.membersSub = this.memberService.getMembers()
+    // .subscribe((members: Member[])=>{this.members = members;})
   }
 
   onDelete(id: string){
