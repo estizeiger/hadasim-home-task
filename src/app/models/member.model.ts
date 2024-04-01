@@ -33,6 +33,3 @@ export interface Member{
     vaccines: Vaccine[];
 }
 
-export interface ServerMember extends Member{
-  _id: string;
-}

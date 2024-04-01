@@ -11,32 +11,43 @@ import { MemberService } from 'src/app/services/member.service';
 export class MemberListComponent implements OnInit, OnDestroy {
   members: Member[] = [];
   private membersSub: Subscription;
+  
+  memberCountsByYear: any;
+  memberDataLoaded: boolean = false;
 
   constructor(private memberService: MemberService) {
     this.membersSub = this.memberService.getMemberUpdateListener()
-    .subscribe((members: Member[])=>{this.members = members;}
+    .subscribe((members: Member[])=>{
+      debugger;
+      this.members = members;
+      console.log(this.members);
+      this.createMemberCountsByYear();
+      }
     );
-
-    // this.membersSub = this.memberService.getMembers()
-    // .subscribe((members: Member[])=>{this.members = members;})
   }
 
   ngOnInit(): void {
     this.memberService.getMembers();
-
-    // this.membersSub = this.memberService.getMembers()
-    // .subscribe((members: Member[])=>{this.members = members;})
   }
 
   onDelete(id: string){
     this.memberService.deleteMember(id);
   }
 
-  onEdit(id: string){
-    
-  }
-
   ngOnDestroy() {
     this.membersSub.unsubscribe();
+  }
+
+  createMemberCountsByYear(){
+    debugger;
+    const memberYears = this.members.map(member => new Date(member.positiveResultDate).getFullYear());
+    const memberCountsByYear = {};
+    memberYears.forEach(year => {
+        if(year){
+          memberCountsByYear[year] = (memberCountsByYear[year] || 0) + 1;
+        }
+    });
+    this.memberCountsByYear = memberCountsByYear;
+    this.memberDataLoaded = true;
   }
 }

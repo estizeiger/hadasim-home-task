@@ -18,3 +18,11 @@
     </td>
   </tr>
 </table>
+<br />
+<br />
+
+<ng-container *ngIf="memberDataLoaded">
+  <app-member-graph
+    [memberCountsByYear]="memberCountsByYear"
+  ></app-member-graph>
+</ng-container>

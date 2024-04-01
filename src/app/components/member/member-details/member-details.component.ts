@@ -47,7 +47,6 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
         vaccines: this.formBuilder.array([])
       });
 
-      // Initialize vaccines if member has them
       if (this.member && this.member.vaccines && this.member.vaccines.length > 0) {
         this.member.vaccines.forEach(vaccine => {
         this.addVaccineFormGroup(vaccine);
@@ -61,8 +60,6 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
       vaccineDate: [vaccine.vaccineDate],
       manufacturer: [vaccine.manufacturer]
     });
-
-    // Push the new vaccine FormGroup to the vaccines FormArray
     (this.memberForm.get('vaccines') as FormArray).push(vaccineFormGroup);
   }
 

@@ -134,6 +134,7 @@
     (click)="addVaccine()"
     value="Add vaccine"
   />
+  <br />
   <table cellspacing="0">
     <ng-container *ngIf="memberForm.get('vaccines') as vaccinesArray">
       <div *ngIf="vaccinesArray.controls.length > 0">
