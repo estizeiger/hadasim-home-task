@@ -15,7 +15,7 @@ In another terminal, run `npm run start-server` to run the back-end node server.
 ![graph](https://github.com/estizeiger/hadasim-home-task/assets/73308036/519defeb-ef8f-43b9-90d8-c9b03fb43c9e)
 
 ### member- edit existing member:
-![form](https://github.com/estizeiger/hadasim-home-task/assets/73308036/4c14e560-7838-4c13-9b43-3bdcfa976571)
+![edit](https://github.com/estizeiger/hadasim-home-task/assets/73308036/b26b92a6-8308-4410-b0db-635a038e7e84)
 
 ### member form- fields validations:
 ![invalid form](https://github.com/estizeiger/hadasim-home-task/assets/73308036/3de795d2-8fab-4815-96cf-1b3eaa6b8131)
