@@ -18,7 +18,6 @@ export class MemberListComponent implements OnInit, OnDestroy {
   constructor(private memberService: MemberService) {
     this.membersSub = this.memberService.getMemberUpdateListener()
     .subscribe((members: Member[])=>{
-      debugger;
       this.members = members;
       console.log(this.members);
       this.createMemberCountsByYear();
@@ -39,7 +38,6 @@ export class MemberListComponent implements OnInit, OnDestroy {
   }
 
   createMemberCountsByYear(){
-    debugger;
     const memberYears = this.members.map(member => new Date(member.positiveResultDate).getFullYear());
     const memberCountsByYear = {};
     memberYears.forEach(year => {

@@ -14,7 +14,6 @@ export class MemberGraphComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.memberCountsByYear) {
-      debugger;
       this.renderGraph();
     }
   }
